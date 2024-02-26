@@ -1,0 +1,16 @@
+name: First workflow
+on: workflow_dispatch
+jobs: 
+  print-github:
+    runs-on: ubuntu-latest
+    env:
+      CUSTOM_VAR: "Hello world"
+    steps:
+      - name: Step 1
+        run: |
+         echo "Repository name: $GITHUB_REPOSITORY" 
+         echo "Branch or tag reference: $GITHUB_REF"
+         echo "Commit SHA: $GITHUB_SHA"
+      - name: Step 2
+        run: |
+          echo "Custom Variable: $CUSTOM_VAR"
