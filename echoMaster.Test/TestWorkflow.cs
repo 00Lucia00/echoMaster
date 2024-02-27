@@ -10,7 +10,7 @@ namespace echoMaster.Test
             //Given
             string expected = "Hello World";
 
-            string result = "Hello world"; // Making the test fail
+            string result = "Hello"; // Making the test fail
 
             result.Should().BeEquivalentTo(expected);
 
