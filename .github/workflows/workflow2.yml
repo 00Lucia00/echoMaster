@@ -1,0 +1,33 @@
+name: Second workflow # skapar ett workflow som kollar om testen fungerar när en push sker
+on: push
+jobs:
+  test-project:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4.1.1
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4.0.0
+        with:
+          dotnet-version: '8'
+      - name: Setup dependencies # Installera dependencies
+        run: dotnet restore
+      - name: Build project
+        run: dotnet build --no-restore
+      - name: Print message
+        run: echo "Running tests now..."
+      - name: Test code
+        run: dotnet test
+  print-success-message:
+    runs-on: ubuntu-latest
+    needs: test-project
+    steps:
+      - name: Print success message
+        run: echo "Tests successful!"
+  print-fail-message:
+    runs-on: ubuntu-latest
+    needs: test-project
+    if: failure()
+    steps:
+      - name: Print fail message
+        run: echo "Tests failed!"
